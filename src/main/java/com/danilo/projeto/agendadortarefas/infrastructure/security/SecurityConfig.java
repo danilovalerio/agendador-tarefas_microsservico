@@ -44,10 +44,6 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/", "/swagger-ui.html").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/auth").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/usuarios/login").permitAll()
-                        .requestMatchers("/usuarios/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -57,18 +53,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-    // Configura o PasswordEncoder para criptografar senhas usando BCrypt
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Retorna uma instância de BCryptPasswordEncoder
-    }
-
-    // Configura o AuthenticationManager usando AuthenticationConfiguration
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        // Obtém e retorna o AuthenticationManager da configuração de autenticação
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
 }
