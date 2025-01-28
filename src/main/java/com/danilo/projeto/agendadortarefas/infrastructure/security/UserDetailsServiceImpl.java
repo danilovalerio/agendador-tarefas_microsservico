@@ -2,13 +2,9 @@ package com.danilo.projeto.agendadortarefas.infrastructure.security;
 
 import com.danilo.projeto.agendadortarefas.business.dto.UsuarioDTO;
 import com.danilo.projeto.agendadortarefas.infrastructure.client.UsuarioClient;
-import com.danilo.projeto.usuario.infrasctructure.entity.Usuario;
-import com.danilo.projeto.usuario.infrasctructure.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
