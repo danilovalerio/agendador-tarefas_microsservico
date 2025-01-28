@@ -1,9 +1,7 @@
-package com.danilo.projeto.agendadortarefas.infrastructure.entity;
+package com.danilo.projeto.agendadortarefas.business.dto;
 
 import com.danilo.projeto.agendadortarefas.infrastructure.enums.StatusNotificacaoEnum;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
@@ -12,10 +10,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document("tarefa")
-public class TarefasEntity {
+public class TarefasDTO {
 
-    @Id
     private String id;
     private String nomeTarefa;
     private String descricao;
