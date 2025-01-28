@@ -2,6 +2,7 @@ package com.danilo.projeto.agendadortarefas.controller;
 
 import com.danilo.projeto.agendadortarefas.business.TarefaService;
 import com.danilo.projeto.agendadortarefas.business.dto.TarefaDTO;
+import com.danilo.projeto.agendadortarefas.infrastructure.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -41,4 +42,20 @@ public class TarefaController {
         return ResponseEntity.ok(tarefaService.buscaTarefasPorEmail(tokenRequestHeader));
 
     }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deletaTarefaPorId(@RequestParam("id") String id) {
+
+        try {
+            tarefaService.deletarTarefaPorId(id);
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(
+                    "Tarefa com id " + id + " nao encontrada" +
+                    e.getMessage()
+            );
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+
 }

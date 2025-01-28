@@ -4,6 +4,7 @@ import com.danilo.projeto.agendadortarefas.business.dto.TarefaDTO;
 import com.danilo.projeto.agendadortarefas.business.mapper.TarefaConverter;
 import com.danilo.projeto.agendadortarefas.infrastructure.entity.TarefasEntity;
 import com.danilo.projeto.agendadortarefas.infrastructure.enums.StatusNotificacaoEnum;
+import com.danilo.projeto.agendadortarefas.infrastructure.exceptions.ResourceNotFoundException;
 import com.danilo.projeto.agendadortarefas.infrastructure.repository.TarefasRepository;
 import com.danilo.projeto.agendadortarefas.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +44,21 @@ public class TarefaService {
         String email = jwtUtil.extrairEmailToken(token.substring(7));
 
         return tarefaConverter.paraListaTarefaDTO(tarefasRepository.findByEmailUsuario(email));
+    }
+
+    public void deletarTarefaPorId(String id) {
+        tarefasRepository.deleteById(String.valueOf(id));
+    }
+
+    public TarefaDTO alteraStatus(StatusNotificacaoEnum status, String id) {
+        try {
+            TarefasEntity entity = tarefasRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+            entity.setStatusNotificacaoEnum(status);
+            return tarefaConverter.paraTarefaDTO(tarefasRepository.save(entity));
+        }  catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException("Tarefa não encontrada, erro ao alterar status" + e.getMessage());
+        }
+
     }
 }
