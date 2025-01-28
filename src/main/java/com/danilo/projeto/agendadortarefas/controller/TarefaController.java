@@ -34,4 +34,11 @@ public class TarefaController {
                 tarefaService.buscaTarefasAgendadasPorPeriodo(dataInicial, dataFinal)
         );
     }
+
+    @GetMapping
+    public ResponseEntity<List<TarefaDTO>> buscaTarefasPorEmail(@RequestHeader("Authorization") String tokenRequestHeader) {
+
+        return ResponseEntity.ok(tarefaService.buscaTarefasPorEmail(tokenRequestHeader));
+
+    }
 }
