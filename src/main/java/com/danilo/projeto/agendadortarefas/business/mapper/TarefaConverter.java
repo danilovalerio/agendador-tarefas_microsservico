@@ -5,7 +5,7 @@ import com.danilo.projeto.agendadortarefas.infrastructure.entity.TarefasEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface UsuarioConverter {
+public interface TarefaConverter {
 
     TarefasEntity paraTarefaEntity(TarefaDTO dto);
 
