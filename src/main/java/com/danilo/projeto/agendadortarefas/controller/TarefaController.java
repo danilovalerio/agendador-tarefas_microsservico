@@ -2,6 +2,7 @@ package com.danilo.projeto.agendadortarefas.controller;
 
 import com.danilo.projeto.agendadortarefas.business.TarefaService;
 import com.danilo.projeto.agendadortarefas.business.dto.TarefaDTO;
+import com.danilo.projeto.agendadortarefas.infrastructure.enums.StatusNotificacaoEnum;
 import com.danilo.projeto.agendadortarefas.infrastructure.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -55,6 +56,22 @@ public class TarefaController {
             );
         }
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping
+    public ResponseEntity<TarefaDTO> alteraStatus(
+            @RequestParam("id") String id,
+            @RequestParam("status") StatusNotificacaoEnum status) {
+
+        return ResponseEntity.ok(tarefaService.alteraStatus(status, id));
+    }
+
+    @PutMapping
+    public ResponseEntity<TarefaDTO> updateTarefa(
+            @RequestBody TarefaDTO dto,
+            @RequestParam("id") String id
+    ) {
+        return ResponseEntity.ok(tarefaService.updateTarefa(dto, id));
     }
 
 
